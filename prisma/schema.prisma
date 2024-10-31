@@ -8,14 +8,13 @@ datasource db {
 }
 
 model User {
-  id       Int          @id @default(autoincrement())
-  name     String
-  email    String       @unique
-  password String
-  bankAccounts BankAccount[]
-  profile  Profile?     @relation(onDelete: Cascade)
+  id           Int          @id @default(autoincrement())
+  name         String
+  email        String       @unique
+  password     String
+  bankAccounts  BankAccount[]
+  profiles     Profile[]  
 }
-
 
 model BankAccount {
   id                Int         @id @default(autoincrement())
@@ -29,12 +28,12 @@ model BankAccount {
 }
 
 model Profile {
-  id            Int     @id @default(autoincrement())
-  user          User    @relation(fields: [userId], references: [id])
-  userId        Int     @unique
-  identityType  String
+  id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int      @unique
+  identityType   String
   identityNumber String
-  address       String
+  address        String
 }
 
 model Transaction {
